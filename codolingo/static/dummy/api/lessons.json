@@ -1,0 +1,37 @@
+[
+    {
+        "id": 1,
+        "label": "Les variables",
+	"nbStars": 3,
+	"isUnlocked": true,
+        "type": "TRAINING"
+    },
+    {
+        "id": 2,
+        "label": "Les conditions",
+	"nbStars": 2,
+	"isUnlocked": true,
+        "type": "TRAINING"
+    },
+    {
+        "id": 3,
+        "label": "Les boucles",
+	"nbStars": 1,
+	"isUnlocked": true,
+        "type": "TRAINING"
+    },
+    {
+        "id": 4,
+        "label": "Les tableaux",
+	"nbStars": 0,
+	"isUnlocked": false,
+        "type": "TRAINING"
+    },
+    {
+        "id": 5,
+        "label": "Evaluation 1",
+	"nbStars": 0,
+	"isUnlocked": false,
+        "type": "ASSESSMENT"
+    }
+]

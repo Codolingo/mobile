@@ -1,0 +1,8 @@
+flutter_launcher_icons:
+  image_path: "static/launcher_icon/codolingo_dev.png"
+  android: 
+    generate: true
+    adaptive_icon_background: "static/launcher_icon/codolingo_dev.png"
+  ios:
+    generate: true
+    background_color: "#FFEBEB"

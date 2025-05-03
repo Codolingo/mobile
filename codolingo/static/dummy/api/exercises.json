@@ -1,0 +1,248 @@
+[
+    {
+        "id": 14563,
+        "label": "Question 1",
+        "type": "MCQ_EXERCISE",
+        "proposals": [
+            {
+                "id": 1,
+                "content": "Proposition 1"
+            },
+            {
+                "id": 2,
+                "content": "Proposition 2"
+            },
+            {
+                "id": 3,
+                "content": "Proposition 3"
+            },
+            {
+                "id": 4,
+                "content": "Proposition 4"
+            }
+        ]
+    },
+    {
+        "id": 14564,
+        "label": "What is the size of int in Java?",
+        "type": "MCQ_EXERCISE",
+        "proposals": [
+            {
+                "id": 1,
+                "content": "4 bytes"
+            },
+            {
+                "id": 2,
+                "content": "2 bytes"
+            },
+            {
+                "id": 3,
+                "content": "8 bytes"
+            },
+            {
+                "id": 4,
+                "content": "1 byte"
+            }
+        ]
+    },
+    {
+        "id": 14565,
+        "label": "Which of the following is not a Java keyword?",
+        "type": "MCQ_EXERCISE",
+        "proposals": [
+            {
+                "id": 1,
+                "content": "static"
+            },
+            {
+                "id": 2,
+                "content": "Boolean"
+            },
+            {
+                "id": 3,
+                "content": "void"
+            },
+            {
+                "id": 4,
+                "content": "private"
+            }
+        ]
+    },
+    {
+        "id": 14566,
+        "label": "Which method is used to start a thread in Java?",
+        "type": "MCQ_EXERCISE",
+        "proposals": [
+            {
+                "id": 1,
+                "content": "start()"
+            },
+            {
+                "id": 2,
+                "content": "run()"
+            },
+            {
+                "id": 3,
+                "content": "init()"
+            },
+            {
+                "id": 4,
+                "content": "main()"
+            }
+        ]
+    },
+    {
+        "id": 15000,
+        "label": "Linking ?",
+        "type": "LINKING_EXERCISE",
+        "proposals": [
+            {
+                "id": 1,
+                "content": "A"
+            },
+            {
+                "id": 2,
+                "content": "B"
+            },
+            {
+                "id": 3,
+                "content": "C"
+            },
+            {
+                "id": 4,
+                "content": "D"
+            },
+            {
+                "id": 5,
+                "content": "1"
+            },
+            {
+                "id": 6,
+                "content": "2"
+            },
+            {
+                "id": 7,
+                "content": "3"
+            },
+            {
+                "id": 8,
+                "content": "4"
+            }
+        ]
+    },
+    {
+        "id": 14567,
+        "label": "Which of the following is a valid declaration of a char?",
+        "type": "MCQ_EXERCISE",
+        "proposals": [
+            {
+                "id": 1,
+                "content": "char c = '\\u0031';"
+            },
+            {
+                "id": 2,
+                "content": "char c = '1';"
+            },
+            {
+                "id": 3,
+                "content": "char c = 1;"
+            },
+            {
+                "id": 4,
+                "content": "char c = 'a';"
+            }
+        ]
+    },
+    {
+        "id": 14568,
+        "label": "Which of the following is not a primitive data type in Java?",
+        "type": "MCQ_EXERCISE",
+        "proposals": [
+            {
+                "id": 1,
+                "content": "int"
+            },
+            {
+                "id": 2,
+                "content": "float"
+            },
+            {
+                "id": 3,
+                "content": "boolean"
+            },
+            {
+                "id": 4,
+                "content": "String"
+            }
+        ]
+    },
+    {
+        "id": 14569,
+        "label": "Which of the following is the correct way to declare a variable in Java?",
+        "type": "MCQ_EXERCISE",
+        "proposals": [
+            {
+                "id": 1,
+                "content": "int num = 1;"
+            },
+            {
+                "id": 2,
+                "content": "num int = 1;"
+            },
+            {
+                "id": 3,
+                "content": "1 int num;"
+            },
+            {
+                "id": 4,
+                "content": "int 1num;"
+            }
+        ]
+    },
+    {
+        "id": 14570,
+        "label": "Which of the following is used to find and fix bugs in the Java programs?",
+        "type": "MCQ_EXERCISE",
+        "proposals": [
+            {
+                "id": 1,
+                "content": "JVM"
+            },
+            {
+                "id": 2,
+                "content": "JRE"
+            },
+            {
+                "id": 3,
+                "content": "JDK"
+            },
+            {
+                "id": 4,
+                "content": "JDB"
+            }
+        ]
+    },
+    {
+        "id": 14571,
+        "label": "Which of the following is a reserved keyword in Java?",
+        "type": "MCQ_EXERCISE",
+        "proposals": [
+            {
+                "id": 1,
+                "content": "object"
+            },
+            {
+                "id": 2,
+                "content": "strictfp"
+            },
+            {
+                "id": 3,
+                "content": "main"
+            },
+            {
+                "id": 4,
+                "content": "system"
+            }
+        ]
+    }
+]

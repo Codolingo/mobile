@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "label": "Premier module de Java",
+		"isUnlocked": true,
+		"nbStarsToUnlock": 0
+    },
+    {
+        "id": 2,
+        "label": "Deuxième module de Java",
+		"isUnlocked": true,
+		"nbStarsToUnlock": 0
+    },
+    {
+        "id": 3,
+        "label": "Troisième module de Java",
+		"isUnlocked": false,
+		"nbStarsToUnlock": 5
+    },
+    {
+        "id": 4,
+        "label": "Quatrième module de Java",
+		"isUnlocked": true,
+		"nbStarsToUnlock": 0
+    }
+]

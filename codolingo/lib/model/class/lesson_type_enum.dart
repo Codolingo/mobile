@@ -1,0 +1,4 @@
+enum CodolingoLessonTypeEnum{
+  training,
+  assessment
+}

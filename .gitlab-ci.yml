@@ -1,0 +1,23 @@
+stages:
+  - test
+
+generate_apk:
+  image: ghcr.io/cirruslabs/flutter:3.29.2
+  script:
+    - cd codolingo
+    - flutter build apk -t lib/main_dummy.dart --flavor dummy
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+  artifacts:
+    paths:
+      - codolingo/build/app/outputs/flutter-apk/app-dummy-release.apk
+  stage: test
+
+test:
+  image: ghcr.io/cirruslabs/flutter:3.29.2
+  script:
+    - cd codolingo
+    - flutter test
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+  stage: test
