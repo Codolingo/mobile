@@ -3,18 +3,18 @@ import 'package:codolingo/model/mvvm/view_events/push_route_event.dart';
 import 'package:codolingo/model/mvvm/view_events/update_view_event.dart';
 import 'package:codolingo/model/mvvm/view_model.dart';
 import 'package:codolingo/pages/map/map_view.dart';
-import 'package:codolingo/services/api/api_service.dart';
+import 'package:codolingo/repositories/api/api_repository.dart';
 import 'package:get_it/get_it.dart';
 
 class WelcomeViewModel extends EventViewModel {
   final GetIt getIt = GetIt.instance;
-  late ApiService _apiService;
+  late ApiRepository _apiRepository;
   bool showThemes = false;
   List<CodolingoTheme> themes = [];
   bool isLoading = true;
 
-  WelcomeViewModel({ApiService? apiService}) {
-    _apiService = apiService ?? getIt.get<ApiService>();
+  WelcomeViewModel({ApiRepository? apiRepository}) {
+    _apiRepository = apiRepository ?? getIt.get<ApiRepository>();
     getThemesList();
   }
 
@@ -23,7 +23,7 @@ class WelcomeViewModel extends EventViewModel {
   }
 
   Future<void> getThemesList() async {
-    themes = await _apiService.getThemes();
+    themes = await _apiRepository.getThemes();
     isLoading = false;
     notify(const UpdateViewEvent());
   }

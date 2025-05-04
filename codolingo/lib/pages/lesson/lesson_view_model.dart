@@ -12,8 +12,8 @@ import 'package:codolingo/model/class/mcq_exercise.dart';
 import 'package:codolingo/model/mvvm/view_events/pop_route_event.dart';
 import 'package:codolingo/model/mvvm/view_events/show_dialog_event.dart';
 import 'package:codolingo/model/mvvm/view_model.dart';
-import 'package:codolingo/services/api/api_service.dart';
-import 'package:codolingo/services/lesson_service.dart';
+import 'package:codolingo/repositories/api/api_repository.dart';
+import 'package:codolingo/repositories/lesson_repository.dart';
 import 'package:codolingo/utils/list_utils.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get_it/get_it.dart';
@@ -23,8 +23,8 @@ class LessonViewModel extends EventViewModel {
 
   final CodolingoScaffoldController scaffoldController;
 
-  late ApiService apiService;
-  late LessonService lessonService;
+  late ApiRepository apiRepository;
+  late LessonRepository lessonRespository;
 
   CodolingoLessonWithExercises lesson;
   List<CodolingoExercise> exercises = [];
@@ -34,10 +34,13 @@ class LessonViewModel extends EventViewModel {
   int streakAnswers = 0;
 
   LessonViewModel(
-      {required this.lesson, required this.scaffoldController, ApiService? apiService, LessonService? lessonService})
+      {required this.lesson,
+      required this.scaffoldController,
+      ApiRepository? apiRepository,
+      LessonRepository? lessonRespository})
       : uiState = LessonViewModelUiState(exercise: lesson.exercises.first) {
-    this.apiService = apiService ?? getIt<ApiService>();
-    this.lessonService = lessonService ?? getIt<LessonService>();
+    this.apiRepository = apiRepository ?? getIt<ApiRepository>();
+    this.lessonRespository = lessonRespository ?? getIt<LessonRepository>();
 
     exercises = lesson.exercises;
   }
@@ -53,7 +56,7 @@ class LessonViewModel extends EventViewModel {
       updateStreak();
       notify();
     } else {
-      EndLessonResult lessonResult = await apiService.endLesson(lesson.id);
+      EndLessonResult lessonResult = await apiRepository.endLesson(lesson.id);
       uiState.lessonResult =
           LessonViewModelResultUiState(stars: lessonResult.stars, perfectStreak: lessonResult.progress == 100.0);
       notify();
@@ -68,7 +71,7 @@ class LessonViewModel extends EventViewModel {
   }
 
   Future<int> onMCQExerciseDone(int p1) async {
-    CodolingoAnswerResult result = await apiService.answerQuestion(uiState.exercise.type, uiState.exercise.id, [p1]);
+    CodolingoAnswerResult result = await apiRepository.answerQuestion(uiState.exercise.type, uiState.exercise.id, [p1]);
     CodolingoMCQExercise currentExercise = exercises[currentExerciseIndex] as CodolingoMCQExercise;
     if (result.answer != p1) {
       String answerText =
@@ -93,7 +96,7 @@ class LessonViewModel extends EventViewModel {
     List<Map<String, int>> answerMap = answer.map((List<int> answer) {
       return {"leftId": answer[0], "rightId": answer[1]};
     }).toList();
-    CodolingoLinkingAnswerResult result = await apiService.answerQuestion(
+    CodolingoLinkingAnswerResult result = await apiRepository.answerQuestion(
         uiState.exercise.type, uiState.exercise.id, answerMap) as CodolingoLinkingAnswerResult;
     if (!result.answer.every((List<int> resultAnswer) {
       return answer

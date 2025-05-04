@@ -1,7 +1,7 @@
 // ignore_for_file: unused_local_variable
 
-import 'package:codolingo/repositories/api/api_repository.dart';
 import 'package:codolingo/services/api/api_service.dart';
+import 'package:codolingo/repositories/api/api_repository.dart';
 import 'package:codolingo/transformers/class/chapter_transformer.dart';
 import 'package:codolingo/transformers/class/exercise_transformer.dart';
 import 'package:codolingo/transformers/class/lesson_transformer.dart';
@@ -10,10 +10,10 @@ import 'package:codolingo/transformers/class/theme_transformer.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 
-import 'api_service_test.mocks.dart';
+import 'api_repository_test.mocks.dart';
 
 @GenerateMocks([
-  ApiRepository,
+  ApiService,
   CodolingoThemeTransformer,
   CodolingoChapterTransformer,
   CodolingoModuleTransformer,
@@ -21,9 +21,9 @@ import 'api_service_test.mocks.dart';
   CodolingoExerciseTransformer
 ])
 void main() {
-  late ApiService apiService;
-
   late ApiRepository apiRepository;
+
+  late ApiService apiService;
   late CodolingoThemeTransformer codolingoThemeTransformer;
   late CodolingoChapterTransformer codolingoChapterTransformer;
   late CodolingoModuleTransformer codolingoModuleTransformer;
@@ -31,7 +31,7 @@ void main() {
   late CodolingoExerciseTransformer codolingoExerciseTransformer;
 
   setUp(() {
-    apiRepository = MockApiRepository();
+    apiService = MockApiService();
     codolingoThemeTransformer = MockCodolingoThemeTransformer();
     codolingoChapterTransformer = MockCodolingoChapterTransformer();
     codolingoModuleTransformer = MockCodolingoModuleTransformer();

@@ -1,41 +1,140 @@
+import 'dart:convert';
+
+import 'package:codolingo/model/api/answer_result.dart';
+import 'package:codolingo/model/api/end_lesson_result.dart';
+import 'package:codolingo/model/class/chapter.dart';
+import 'package:codolingo/model/class/exercise.dart';
 import 'package:codolingo/model/class/exercise_type_enum.dart';
+import 'package:codolingo/model/class/lesson.dart';
+import 'package:codolingo/model/class/login_response.dart';
+import 'package:codolingo/model/class/module.dart';
+import 'package:codolingo/model/class/theme.dart';
+import 'package:codolingo/services/api/api_service.dart';
+import 'package:codolingo/transformers/class/answer_result_transformer.dart';
+import 'package:codolingo/transformers/class/chapter_transformer.dart';
+import 'package:codolingo/transformers/class/end_lesson_result_transformer.dart';
+import 'package:codolingo/transformers/class/exercise_transformer.dart';
+import 'package:codolingo/transformers/class/lesson_transformer.dart';
+import 'package:codolingo/transformers/class/module_transformer.dart';
+import 'package:codolingo/transformers/class/theme_transformer.dart';
+import 'package:get_it/get_it.dart';
 
 abstract class ApiRepository {
-  /// Fetch the themes available
-  Future<dynamic> fetchThemes();
+  /// Get the themes available
+  Future<List<CodolingoTheme>> getThemes();
 
-  /// Fetch the chapters from a [themeId]
-  Future<dynamic> fetchChapters({required int themeId});
+  /// Get the chapters from a [themeId]
+  Future<List<CodolingoChapter>> getChapters(int themeId);
 
-  /// Fetch the modules from a [chapterId]
-  Future<dynamic> fetchModules({required int chapterId});
+  /// Get the modules from a [chapterId]
+  Future<List<CodolingoModule>> getModules(int chapterId);
 
-  /// Fetch the lessons from a [moduleId]
-  Future<dynamic> fetchLessons({required int moduleId});
+  /// Get the lessons from a [moduleId]
+  Future<List<CodolingoLesson>> getLessons(int moduleId);
 
-  /// Start a lesson with id [lessonId]
-  ///
-  /// This will return a list of 10 random exercises from the lesson
-  Future<dynamic> startLesson({required int lessonId});
+  /// Get random exercises from a [lessonId]
+  Future<List<CodolingoExercise>> startLesson(int lessonId);
 
   /// End a lesson with id [lessonId]
-  ///
-  /// This will return nothing as it is only a post request
-  Future<dynamic> endLesson({required int lessonId});
+  Future<EndLessonResult> endLesson(int lessonId);
+
+  /// Get the first exercises
+  Future<List<CodolingoExercise>> getFirstExercises();
 
   /// Answer a question with id [questionId] and answer [answer]
-  ///
-  /// The server will return the answer and if we are correct
-  Future<dynamic> answerQuestion({
-    required CodolingoExerciseTypeEnum exercice,
-    required int questionId,
-    required dynamic answer,
-  });
-
-
+  Future<CodolingoAnswerResult> answerQuestion(CodolingoExerciseTypeEnum type, int questionId, dynamic answer);
 
   /// Get token [token] with expiration [expiresIn] after authentication
-  /// 
-  /// The server will return token and an expiration
-  Future<bool> login({required String username, required String password});
+  Future<bool> login(String username, String password);
+}
+
+class ApiRepositoryImpl implements ApiRepository {
+  final getIt = GetIt.instance;
+
+  late ApiService apiService;
+  late CodolingoThemeTransformer themeTransformer;
+  late CodolingoChapterTransformer chapterTransformer;
+  late CodolingoModuleTransformer moduleTransformer;
+  late CodolingoLessonTransformer lessonTransformer;
+  late CodolingoExerciseTransformer exerciseTransformer;
+  late EndLessonResultTransformer endLessonResultTransformer;
+
+  ApiRepositoryImpl({
+    ApiService? apiRepository,
+    CodolingoThemeTransformer? themeTransformer,
+    CodolingoChapterTransformer? chapterTransformer,
+    CodolingoModuleTransformer? moduleTransformer,
+    CodolingoLessonTransformer? lessonTransformer,
+    CodolingoExerciseTransformer? exerciseTransformer,
+    EndLessonResultTransformer? endLessonResultTransformer,
+  }) {
+    this.apiService = apiRepository ?? getIt.get<ApiService>();
+    this.themeTransformer = themeTransformer ?? getIt.get<CodolingoThemeTransformer>();
+    this.chapterTransformer = chapterTransformer ?? getIt.get<CodolingoChapterTransformer>();
+    this.moduleTransformer = moduleTransformer ?? getIt.get<CodolingoModuleTransformer>();
+    this.lessonTransformer = lessonTransformer ?? getIt.get<CodolingoLessonTransformer>();
+    this.exerciseTransformer = exerciseTransformer ?? getIt.get<CodolingoExerciseTransformer>();
+    this.endLessonResultTransformer = endLessonResultTransformer ?? getIt.get<EndLessonResultTransformer>();
+  }
+
+  @override
+  Future<List<CodolingoTheme>> getThemes() async {
+    dynamic rawThemes = await apiService.fetchThemes();
+    return themeTransformer.fromListJson(rawThemes);
+  }
+
+  @override
+  Future<List<CodolingoChapter>> getChapters(int themeId) async {
+    dynamic rawChapters = await apiService.fetchChapters(themeId: themeId);
+    return chapterTransformer.fromListJson(rawChapters);
+  }
+
+  @override
+  Future<List<CodolingoModule>> getModules(int chapterId) async {
+    dynamic rawModules = await apiService.fetchModules(chapterId: chapterId);
+    return moduleTransformer.fromListJson(rawModules);
+  }
+
+  @override
+  Future<List<CodolingoLesson>> getLessons(int moduleId) async {
+    dynamic rawLessons = await apiService.fetchLessons(moduleId: moduleId);
+    print(rawLessons);
+    return lessonTransformer.fromListJson(rawLessons);
+  }
+
+  @override
+  Future<List<CodolingoExercise>> startLesson(int lessonId) async {
+    dynamic rawExercises = await apiService.startLesson(lessonId: lessonId);
+    print(rawExercises);
+    return exerciseTransformer.fromListJson(rawExercises);
+  }
+
+  @override
+  Future<EndLessonResult> endLesson(int lessonId) async {
+    dynamic rawEndLessons = await apiService.endLesson(lessonId: lessonId);
+    print(rawEndLessons);
+    return endLessonResultTransformer.fromJson(rawEndLessons);
+  }
+
+  @override
+  Future<CodolingoAnswerResult> answerQuestion(
+      CodolingoExerciseTypeEnum exercice, int questionId, dynamic answer) async {
+    dynamic rawAnswer = await apiService.answerQuestion(exercice: exercice, questionId: questionId, answer: answer);
+    return CodolingoAnswerResultTransformer().fromJson(exercice, rawAnswer);
+  }
+
+  @override
+  Future<List<CodolingoExercise>> getFirstExercises() async {
+    List<CodolingoTheme> themes = await getThemes();
+    List<CodolingoChapter> chapters = await getChapters(themes.first.id);
+    List<CodolingoModule> modules = await getModules(chapters.first.id);
+    List<CodolingoLesson> lessons = await getLessons(modules.first.id);
+    return startLesson(lessons.first.id);
+  }
+
+  @override
+  Future<bool> login(String username, String password) async {
+    bool response = await apiService.login(username: username, password: password);
+    return response;
+  }
 }

@@ -1,8 +1,8 @@
-abstract class LessonService {
+abstract class LessonRepository {
   int getStarsBySuccess(double successRate);
 }
 
-class LessonServiceImpl implements LessonService {
+class LessonRepositoryImpl implements LessonRepository {
   int getStarsBySuccess(double successRate) {
     switch (successRate) {
       case <= 0.5:

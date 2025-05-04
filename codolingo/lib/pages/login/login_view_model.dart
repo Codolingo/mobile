@@ -4,14 +4,14 @@ import 'package:codolingo/pages/home/home_view.dart';
 import 'package:codolingo/pages/lesson/lesson_view.dart';
 import 'package:codolingo/pages/map/map_view.dart';
 import 'package:codolingo/pages/welcome/welcome_view.dart';
-import 'package:codolingo/services/api/api_service.dart';
+import 'package:codolingo/repositories/api/api_repository.dart';
 import 'package:get_it/get_it.dart';
 import 'package:codolingo/model/mvvm/view_events/push_route_event.dart';
 
 class LoginViewModel extends EventViewModel {
   final GetIt getIt = GetIt.instance;
 
-  late ApiService _apiService;
+  late ApiRepository _apiRepository;
 
   // Value not accessible by the view
   // ignore: unused_field
@@ -22,8 +22,8 @@ class LoginViewModel extends EventViewModel {
   // Value accessible by the view
   String publicValue;
 
-  LoginViewModel(this._privateValue, this.publicValue, {ApiService? apiService}) {
-    _apiService = apiService ?? getIt.get<ApiService>();
+  LoginViewModel(this._privateValue, this.publicValue, {ApiRepository? apiRepository}) {
+    _apiRepository = apiRepository ?? getIt.get<ApiRepository>();
   }
 
   void redirect() async {
@@ -32,7 +32,7 @@ class LoginViewModel extends EventViewModel {
 
   Future<void> login(String username, String password) async {
     try {
-      final response = await _apiService.login(username, password);
+      final response = await _apiRepository.login(username, password);
       if (response) {
         redirect();
       } else {

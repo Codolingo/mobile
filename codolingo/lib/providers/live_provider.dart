@@ -1,6 +1,6 @@
 import 'package:codolingo/providers/provider.dart';
-import 'package:codolingo/repositories/api/api_repository.dart';
-import 'package:codolingo/repositories/api/live/live_api_repository.dart';
+import 'package:codolingo/services/api/api_service.dart';
+import 'package:codolingo/services/api/live/live_api_service.dart';
 
 /// Provider for the repositories and services.
 class CodolingoLiveProvider extends CodolingoProvider {
@@ -9,8 +9,8 @@ class CodolingoLiveProvider extends CodolingoProvider {
   CodolingoLiveProvider(this.baseUrl);
 
   @override
-  initRepositories() {
-    super.initRepositories();
-    getIt.registerSingleton<ApiRepository>(LiveApiRepository(baseUrl));
+  initServices() {
+    super.initServices();
+    getIt.registerSingleton<ApiService>(LiveApiService(baseUrl));
   }
 }

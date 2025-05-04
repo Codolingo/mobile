@@ -1,13 +1,13 @@
 import 'package:codolingo/model/class/exercise_type_enum.dart';
-import 'package:codolingo/repositories/api/api_repository.dart';
+import 'package:codolingo/services/api/api_service.dart';
 import 'package:dio/dio.dart';
 
-class LiveApiRepository extends ApiRepository {
+class LiveApiService extends ApiService {
   String? connectionToken;
   final String baseUrl;
   final Dio dio = Dio();
 
-  LiveApiRepository(this.baseUrl);
+  LiveApiService(this.baseUrl);
 
   Options get authorizationOptions => Options(headers: {'Authorization': 'Bearer $connectionToken'});
 
@@ -54,8 +54,7 @@ class LiveApiRepository extends ApiRepository {
       baseRequest["pairs"] = answer;
     }
     final request = await dio.post("$baseUrl${LiveApiRepositioryQueries.answerQuestion}",
-        data: baseRequest,
-        options: authorizationOptions);
+        data: baseRequest, options: authorizationOptions);
     print(request.data);
     return request.data;
   }

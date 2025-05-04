@@ -9,16 +9,16 @@ import 'package:codolingo/model/mvvm/view_events/update_view_event.dart';
 import 'package:codolingo/model/mvvm/view_model.dart';
 import 'package:codolingo/pages/lesson/lesson_view.dart';
 import 'package:codolingo/pages/map/map_view.dart';
-import 'package:codolingo/services/api/api_service.dart';
+import 'package:codolingo/repositories/api/api_repository.dart';
 import 'package:get_it/get_it.dart';
 
 class HomeViewModel extends EventViewModel {
   final GetIt getIt = GetIt.instance;
-  late ApiService _apiService;
+  late ApiRepository _apiService;
   List<CodolingoChapter> chapters = [];
 
-  HomeViewModel({ApiService? apiService}) {
-    _apiService = apiService ?? getIt.get<ApiService>();
+  HomeViewModel({ApiRepository? apiService}) {
+    _apiService = apiService ?? getIt.get<ApiRepository>();
     getChaptersList();
   }
 

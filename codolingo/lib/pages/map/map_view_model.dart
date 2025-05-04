@@ -12,13 +12,13 @@ import 'package:codolingo/model/mvvm/view_events/update_view_event.dart';
 import 'package:codolingo/model/mvvm/view_model.dart';
 import 'package:codolingo/pages/lesson/lesson_view.dart';
 import 'package:codolingo/pages/map/map_view.dart';
-import 'package:codolingo/services/api/api_service.dart';
+import 'package:codolingo/repositories/api/api_repository.dart';
 import 'package:get_it/get_it.dart';
 
 class MapViewModel extends EventViewModel {
   final GetIt getIt = GetIt.instance;
 
-  late ApiService _apiService;
+  late ApiRepository _apiRepository;
 
   // Value not accessible by the view
   // ignore: unused_field
@@ -36,8 +36,8 @@ class MapViewModel extends EventViewModel {
   // Value accessible by the view
   String publicValue;
 
-  MapViewModel(this._privateValue, this.publicValue, {ApiService? apiService}) {
-    _apiService = apiService ?? getIt.get<ApiService>();
+  MapViewModel(this._privateValue, this.publicValue, {ApiRepository? apiRepository}) {
+    _apiRepository = apiRepository ?? getIt.get<ApiRepository>();
   }
 
   // Method to change the value and notify the view
@@ -46,16 +46,16 @@ class MapViewModel extends EventViewModel {
   }
 
   void fetchData() async {
-    themes = await _apiService.getThemes();
+    themes = await _apiRepository.getThemes();
 
     for (var theme in themes) {
-      theme.chapters = await _apiService.getChapters(theme.id);
+      theme.chapters = await _apiRepository.getChapters(theme.id);
 
       for (var chapter in theme.chapters) {
-        chapter.modules = await _apiService.getModules(chapter.id);
+        chapter.modules = await _apiRepository.getModules(chapter.id);
 
         for (var module in chapter.modules) {
-          module.lessons = await _apiService.getLessons(module.id);
+          module.lessons = await _apiRepository.getLessons(module.id);
         }
       }
     }
@@ -70,7 +70,7 @@ class MapViewModel extends EventViewModel {
         .firstWhere((module) => module.id == moduleId)
         .lessons
         .firstWhere((lesson) => lesson.id == lessonId);
-    List<CodolingoExercise> exercises = await _apiService.startLesson(lessonId);
+    List<CodolingoExercise> exercises = await _apiRepository.startLesson(lessonId);
     notify(PushRouteEvent(LessonPageRoute.route,
         arguments: CodolingoLessonWithExercises(
             lessonId, lesson.label, lesson.nbStars, lesson.isUnlocked, CodolingoLessonTypeEnum.assessment, exercises)));
@@ -98,8 +98,10 @@ class MapViewModel extends EventViewModel {
             mapPattern.add(SinglePattern(ButtonInfo(module.id, lesson.id, !lesson.isUnlocked)));
             lessonIndex++;
           } else {
-            mapPattern.add(RowPattern(
-                [ButtonInfo(module.id, lesson.id, !lesson.isUnlocked), ButtonInfo(module.id, module.lessons[lessonIndex + 1].id, !lesson.isUnlocked)]));
+            mapPattern.add(RowPattern([
+              ButtonInfo(module.id, lesson.id, !lesson.isUnlocked),
+              ButtonInfo(module.id, module.lessons[lessonIndex + 1].id, !lesson.isUnlocked)
+            ]));
             lessonIndex += 2;
           }
         }

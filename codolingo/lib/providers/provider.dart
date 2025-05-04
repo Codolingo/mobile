@@ -1,5 +1,5 @@
-import 'package:codolingo/services/api/api_service.dart';
-import 'package:codolingo/services/lesson_service.dart';
+import 'package:codolingo/repositories/api/api_repository.dart';
+import 'package:codolingo/repositories/lesson_repository.dart';
 import 'package:codolingo/transformers/class/answer_transformer.dart';
 import 'package:codolingo/transformers/class/chapter_transformer.dart';
 import 'package:codolingo/transformers/class/end_lesson_result_transformer.dart';
@@ -14,8 +14,8 @@ class CodolingoProvider {
 
   CodolingoProvider() {
     initTransformers();
-    initRepositories();
     initServices();
+    initRepositories();
   }
 
   initTransformers() {
@@ -30,10 +30,10 @@ class CodolingoProvider {
     getIt.registerSingleton<EndLessonResultTransformer>(EndLessonResultTransformer());
   }
 
-  initRepositories() {}
+  initServices() {}
 
-  initServices() {
-    getIt.registerSingleton<ApiService>(ApiServiceImpl());
-    getIt.registerSingleton<LessonService>(LessonServiceImpl());
+  initRepositories() {
+    getIt.registerSingleton<ApiRepository>(ApiRepositoryImpl());
+    getIt.registerSingleton<LessonRepository>(LessonRepositoryImpl());
   }
 }

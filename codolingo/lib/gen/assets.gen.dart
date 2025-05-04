@@ -67,6 +67,9 @@ class $StaticDummyApiGen {
   /// File path: static/dummy/api/lessons.json
   String get lessons => 'static/dummy/api/lessons.json';
 
+  /// File path: static/dummy/api/login.json
+  String get login => 'static/dummy/api/login.json';
+
   /// File path: static/dummy/api/modules.json
   String get modules => 'static/dummy/api/modules.json';
 
@@ -74,10 +77,8 @@ class $StaticDummyApiGen {
   String get themes => 'static/dummy/api/themes.json';
 
   /// List of all assets
-  List<String> get values => [chapters, exercises, lessons, modules, themes];
-
-  /// File path: static/dummy/api/login.json
-  String get login => 'static/dummy/api/login.json';
+  List<String> get values =>
+      [chapters, exercises, lessons, login, modules, themes];
 }
 
 class $StaticImagesRacoonGen {
