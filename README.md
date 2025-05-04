@@ -54,10 +54,10 @@ Une dépendance peut être ajoutée dans le système d'injection de dépendance 
 - Live : ./lib/providers/live_provider.dart
 - Les deux : ./lib/providers/provider.dart
 
-Attention, ce n'est pas parce qu'on peut injecter des services partout qu'il faut le faire : 
-- Un ViewModel ne peut que utiliser des Services
-- Un Service ne peut que utiliser des Services, des Repositories et des Transformers
-- Un Repository ne peut que utiliser des Repositories
+Attention, ce n'est pas parce qu'on peut injecter des repositories partout qu'il faut le faire : 
+- Un ViewModel ne peut que utiliser des Repositories
+- Un Repository ne peut que utiliser des Repositories, des Services et des Transformers
+- Un Service ne peut que utiliser des Services
 - Un Transformer ne peut que utiliser des Transformers
 
 ## Troubleshoot
