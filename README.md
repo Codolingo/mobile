@@ -1,4 +1,10 @@
-# 3A - Codolingo - Front-End
+# Codolingo
+
+Codolingo est une application permettant d'apprendre les bases de la programmation de manière simple et ludique. Vous trouverez dans ce dépôt le code source front-end du projet.
+
+<br/>
+
+![bento](https://github.com/user-attachments/assets/5bd7180f-faac-45a2-8e3f-333f60d86951)
 
 ## Run
 
